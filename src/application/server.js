@@ -1,5 +1,5 @@
 import express from 'express';
-import { createTodo } from './handler.js';
+import { createTodo, getAllTodo } from './handler.js';
 
 export const app = express();
 const router = express.Router();
@@ -8,9 +8,9 @@ const router = express.Router();
 app.use(express.json());
 // app.use(router);
 app.route('/todolist')
-    .get((req, res) => {
-        res.send('Testing')
-    })
+    .get(getAllTodo)
     .post(createTodo);
 // app.use();
 
+app.route('/todolist/:todolistID')
+    .get()

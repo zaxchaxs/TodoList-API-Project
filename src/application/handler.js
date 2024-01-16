@@ -3,10 +3,27 @@ import createTodoList from './currentHandler.js';
 import { createTodoListValidation } from '../validation/validation.js';
 import { prismaClient } from './prisma-client.js';
 
-// const app = express();
+
+const getAllTodo = async (req, res) => {
+    
+    const result = await prismaClient.todolist.findMany({
+        select: {
+            title: true,
+            description: true,
+            priority: true
+        }
+    });
+    if(result.length === 0) {
+        res.send('Theres no Todos yet. Try to create one!')
+        .status(200);
+    } else {
+        res.status(200)
+        .json(result);
+    };
+}
 
 
-const createTodo = async (req, res, next) => {
+const createTodo = async (req, res) => {
 
     const todo = createTodoListValidation.validate(req.body, {
         abortEarly: false,
@@ -16,15 +33,18 @@ const createTodo = async (req, res, next) => {
     
     if (todo.error) {
         res.status(400).send(todo.error.message);
-        console.log(todo.error.message)
     } else {
-        res.status(200);
         const result = await prismaClient.todolist.create({
             data: todo.value,
             select: {
                 title: true,
-                description: true
+                description: true,
+                priority: true,
             }
+        });
+        res.status(200)
+        .json({
+            data: result
         });
     };
 
@@ -39,8 +59,17 @@ const createTodo = async (req, res, next) => {
     // }
 };
 
+const getTodoList = async (req, res) => {
+    const result = await prismaClient.todolist.findUnique({
+        where: {
+            // id: req.
+        }
+    })
+}
+
 
 // const errorMiddleware
 export {
-    createTodo
+    createTodo,
+    getAllTodo
 }
