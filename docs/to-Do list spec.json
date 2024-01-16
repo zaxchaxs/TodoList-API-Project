@@ -1,0 +1,439 @@
+{
+    "openapi":"3.0.2",
+    "info": {
+      "title":"To-Do list API",
+      "version":"1.0",
+      "description": "To-Do List API to Create, Read, Update and Delete",
+      "contact": {
+        "name": "Irzi Rahmatullah",
+        "email": "irzirahmatullah@gmail.com",
+        "url": "https://zaxchaxs.github.io/IrziRahmatullah-Portfolio/public/"
+      }
+    },
+    "servers": [
+      {"url":"https://api.server.test"}
+    ],
+    "paths": {
+        "/todolist": {
+            "get": {
+                "tags": [
+                    "todolist"
+                ],
+                "summary": "Get All To-Do List",
+                "responses": {
+                    "200": {
+                        "description": "Success to get all To-Do List",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "title": {
+                                                "type": "string",
+                                                "minLength": 3,
+                                                "maxLength": 100,
+                                                "nullable": false
+                                            },
+                                            "description": {
+                                                "type": "string",
+                                                "minLength": 5,
+                                                "maxLength": 300
+                                            },
+                                            "priority": {
+                                                "type": "number",
+                                                "minimum": 1,
+                                                "maximum": 5
+                                            }
+                                        }
+                                    }
+                                },
+                                "example": [{
+                                    "title": "Membuat API To-Do List",
+                                    "description": "Membuat API To-Do List menggunakan Express JS.",
+                                    "priority": 5
+                                
+                                },
+                                {
+                                    "title": "Belajar TypeScript",
+                                    "description": "Lorem Ipsum bllbalblabla",
+                                    "priority": 2
+                                }
+                            ]
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Fail to get all To-Do List",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "errors": "To-Do List is null"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "todolist"
+                ],
+                "summary": "Create To-Do List",
+                "requestBody": {
+                    "required": true,
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "type": "number",
+                                        "nullable": false
+                                    },
+                                    "title": {
+                                        "type": "string",
+                                        "minLength": 3,
+                                        "maxLength": 100,
+                                        "nullable": false
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "minLength": 5,
+                                        "maxLength": 300
+                                    },
+                                    "priority": {
+                                        "type": "number",
+                                        "minimum": 1,
+                                        "maximum": 5
+                                    }
+                                }
+                            },
+                            "examples": {
+                                "example1": {
+                                    "value": {
+                                        "id": 1,
+                                        "title": "Membuat API To-Do List",
+                                        "description": "Membuat API To-Do List menggunakan Express JS, prisma dan lainnya.",
+                                        "priority": 5
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success to create To-Do List ",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "nullable": false
+                                        },
+                                        "title": {
+                                            "type": "string",
+                                            "minLength": 3,
+                                            "maxLength": 100,
+                                            "nullable": false
+                                        },
+                                        "description": {
+                                            "type": "string",
+                                            "minLength": 5,
+                                            "maxLength": 300
+                                        },
+                                        "priority": {
+                                            "type": "number",
+                                            "minimum": 1,
+                                            "maximum": 5
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "example1": {
+                                        "value": {
+                                            "title": "Membuat API To-Do List",
+                                            "description": "Membuat API To-Do List menggunakan Express JS, prisma dan lainnya.",
+                                            "priority": 5
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "failed to create todolist",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "errors": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "No Title": {
+                                        "value": {
+                                            "errors": "Title is required"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/todolist/{todolistID}": {
+            "get": {
+                "tags": [
+                    "todoListID"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/todolistID"
+                    }
+                ],
+                "summary": "Get Existing To-Do List by ID",
+                "responses": {
+                    "200": {
+                        "description": "Success get todolist by id",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "title": {
+                                            "type": "string",
+                                            "minLength": 3,
+                                            "maxLength": 100,
+                                            "nullable": false
+                                        },
+                                        "description": {
+                                            "type": "string",
+                                            "minLength": 5,
+                                            "maxLength": 300
+                                        },
+                                        "priority": {
+                                            "type": "number",
+                                            "minimum": 1,
+                                            "maximum": 5
+                                        } 
+                                    }
+                                },
+                                "examples": {
+                                    "example-1": {
+                                        "value": {
+                                            "title": "Membuat API To-Do List",
+                                            "description": "Membuat API To-Do List menggunakan Express JS, prisma dan lainnya.",
+                                            "priority": 5
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "failed to get todolist by id",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "errors": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "errors": "To-Do List is not existing"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "todoListID"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/todolistID"
+                    }
+                ],
+                "summary": "Update Existing To-do List",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "minLength": 3,
+                                        "maxLength": 100,
+                                        "nullable": false
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "minLength": 5,
+                                        "maxLength": 300
+                                    },
+                                    "priority": {
+                                        "type": "number",
+                                        "minimum": 1,
+                                        "maximum": 5
+                                    }
+                                }
+                            },
+                            "examples": {
+                                "example-1": {
+                                    "value": {
+                                        "title": "(Updated) Membuat API To-Do List",
+                                        "description": "(Updated) Membuat API To-Do List menggunakan Express JS, prisma dan lainnya.",
+                                        "priority": 5
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success to update To-Do List ",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "title": {
+                                            "type": "string",
+                                            "minLength": 3,
+                                            "maxLength": 100,
+                                            "nullable": false
+                                        },
+                                        "description": {
+                                            "type": "string",
+                                            "minLength": 5,
+                                            "maxLength": 300
+                                        },
+                                        "priority": {
+                                            "type": "number",
+                                            "minimum": 1,
+                                            "maximum": 5
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "example1": {
+                                        "value": {
+                                            "title": "(Updated) Membuat API To-Do List",
+                                            "description": "(Updated) API To-Do List menggunakan Express JS, prisma dan lainnya.",
+                                            "priority": 5
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "failed to update To-Do List",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "errors": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Id not found": {
+                                        "value": {
+                                            "errors": "To-Do list is not found"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "todoListID"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/todolistID"
+                    }
+                ],
+                "summary": "Delete Existing To-Do List",
+                "responses": {
+                    "200": {
+                        "description": "Success to delete To-Do List ",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "description": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "description": "To-Do List deleted"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "failed to update To-Do List",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "errors": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Id not found": {
+                                        "value": {
+                                            "errors": "To-Do list is not found"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "parameters": {
+            "todolistID": {
+                "in": "path",
+                "name": "todoListID",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        }
+    }
+}
