@@ -1,10 +1,10 @@
 import supertest from "supertest";
-import { app } from "../application/server";
+import { app } from "../application/server.js";
 import { createManyTodo, removeAllTodoList } from "./test-util.js";
 
 describe("Create Todo", () => {
     afterEach(async () => {
-        removeAllTodoList();
+        await removeAllTodoList();
     });
     it("Should can create todo list", async () => {
 
@@ -34,10 +34,7 @@ describe("Create Todo", () => {
         expect(result.text).toContain('"title" length must be at least 2 characters long');
         expect(result.text).toContain('"priority" must be less than or equal to 5');
 
-    })
-})
-
-describe("Get Null Todo List", () => {
+    });
 
     it("Should can confirm that theres no todolist in database", async () => {
         const result = await supertest(app)
@@ -45,12 +42,15 @@ describe("Get Null Todo List", () => {
 
         expect(result.text).toContain('Theres no Todos yet. Try to create one!')
     });
-    
-});
+})
 
 describe('Get All Todo List', () => {
     beforeEach(async () => {
-        createManyTodo();
+        await createManyTodo();
+    });
+
+    afterEach(async () => {
+        await removeAllTodoList();
     });
 
     it("Should can show all todos", async () => {

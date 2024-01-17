@@ -31,7 +31,26 @@ const createManyTodo = async () => {
     })
 }
 
+const resetAutoIncrement = async () => {
+    const tableName = 'todolist';
+    await prismaClient.$executeRaw`ALTER TABLE ${tableName} AUTO_INCREMENT = ${1}`;
+}
+
+const createTestTodo = async () => {
+    const result = await prismaClient.todolist.create({
+        data: {
+            id: 6675,
+            title: "Testing todo",
+            description: "Testing todo untuk cek apakah bisa get by id",
+            priority: 5,
+        }
+    })
+    return result;
+}
+
 export {
     removeAllTodoList,
-    createManyTodo
+    createManyTodo,
+    resetAutoIncrement,
+    createTestTodo,
 }
