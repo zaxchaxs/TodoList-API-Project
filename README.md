@@ -14,4 +14,4 @@ Happy coding! 🚀
 
 ## Documentation
 
-Check out the [API Documentation]([#](https://github.com/zaxchaxs/TodoList-API-Project/blob/main/docs/to-Do%20list%20spec.json)https://github.com/zaxchaxs/TodoList-API-Project/blob/main/docs/to-Do%20list%20spec.json) for details on endpoints and usage.
+Check out the [docs/to-Do List spec.json](docs/to-Do%20list%20spec.json) for details on endpoints and usage.
