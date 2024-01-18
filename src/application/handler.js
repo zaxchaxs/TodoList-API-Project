@@ -12,7 +12,7 @@ const getAllTodo = async (req, res) => {
         }
     });
     if(result.length === 0) {
-        res.status(200)
+        res.status(404)
             .json({
                 errors: "There's no to-do list. Try to create one!"
             });
@@ -104,7 +104,10 @@ const updateTodoList = async (req, res) => {
             })
             .end();
     } else if (updateTodo.error) {
-        res.status(400).send(updateTodo.error.message);
+        res.status(400)
+        .json({
+            errors: updateTodo.error.message 
+        })
     } else {
         const result = await prismaClient.todolist.update({
             where: {
