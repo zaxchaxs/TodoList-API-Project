@@ -1,5 +1,3 @@
-import express, { json } from 'express';
-import createTodoList from './currentHandler.js';
 import { createTodoListValidation, updateTodoListValidation } from '../validation/validation.js';
 import { prismaClient } from './prisma-client.js';
 
@@ -14,8 +12,10 @@ const getAllTodo = async (req, res) => {
         }
     });
     if(result.length === 0) {
-        res.send('Theres no Todos yet. Try to create one!')
-        .status(200);
+        res.status(200)
+            .json({
+                errors: "There's no to-do list. Try to create one!"
+            });
     } else {
         res.status(200)
         .json(result);
@@ -32,7 +32,10 @@ const createTodo = async (req, res) => {
     });
     
     if (todo.error) {
-        res.status(400).send(todo.error.message);
+        res.status(400)
+            .json({
+                errors: todo.error.message,
+            });
     } else {
         const result = await prismaClient.todolist.create({
             data: todo.value,
@@ -72,9 +75,10 @@ const getTodoList = async (req, res) => {
 
     if(result === null) {
         res.status(404)
-            .send('Todolist is not found. Theres no todolist in database with that id')
+            .json({
+                errors: "To-Do List is not found / existing",
+            })
     } else{
-        console.log(result);
         res.status(200)
             .json(result);
     };
@@ -94,7 +98,10 @@ const updateTodoList = async (req, res) => {
     });
 
     if(todoID === null) {
-        res.status(400).send(`Failed to update. To-Do List ID is not invalid`)
+        res.status(404)
+            .json({
+                errors: "To-Do List is not found / existing"
+            })
             .end();
     } else if (updateTodo.error) {
         res.status(400).send(updateTodo.error.message);
@@ -126,8 +133,10 @@ const deleteTodolist =  async (req, res) => {
     });
 
     if(todoID === null) {
-        res.status(400)
-            .send("Failed to delete. To-Do list ID is not invalid")
+        res.status(404)
+            .json({
+                errors: "To-Do List is not found / existing"
+            });
     } else {
         await prismaClient.todolist.delete({
             where: {
@@ -136,7 +145,9 @@ const deleteTodolist =  async (req, res) => {
         });
 
         res.status(200)
-            .send("Todo List successfuly deleted");
+            .json({
+                message: "To-Do List Deleted"
+            });
     }
 }
 

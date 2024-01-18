@@ -1,7 +1,6 @@
 import supertest from "supertest";
 import { app } from "../application/server.js";
 import { createManyTodo, createTestTodo, removeAllTodoList, resetAutoIncrement } from "./test-util.js";
-import { prismaClient } from "../application/prisma-client.js";
 
 describe('Get Todo List by ID', () => {
     beforeEach(async () => {
@@ -30,6 +29,7 @@ describe('Get Todo List by ID', () => {
         .get('/todolist/12345') //ID is not found
     
         expect(result.status).toBe(404);
+        expect(result.body.errors).toBe('To-Do List is not found / existing')
 
     });
 });
@@ -88,8 +88,8 @@ describe("Update todo list", () => {
         .put('/todolist/12345') //invalid ID
         .send(updateTodo);
 
-        expect(result.status).toBe(400);
-        expect(result.text).toBe("Failed to update. To-Do List ID is not invalid");
+        expect(result.status).toBe(404);
+        expect(result.body.errors).toBe("To-Do List is not found / existing");
     });
 });
 
@@ -103,14 +103,14 @@ describe('Delete Todo List', () => {
             .delete('/todolist/' + testTodo.id)
         
         expect(result.status).toBe(200);
-        expect(result.text).toBe(`Todo List successfuly deleted`)
+        expect(result.body.message).toBe(`To-Do List Deleted`)
     });
     
     it("Should cannot delete todolist because id todolist is not existing/invalid id", async () => {
         const result = await supertest(app)
             .delete('/todolist/12345');
 
-            expect(result.status).toBe(400);
-            expect(result.text).toBe("Failed to delete. To-Do list ID is not invalid");
+            expect(result.status).toBe(404);
+            expect(result.body.errors).toBe("To-Do List is not found / existing");
     });
 });

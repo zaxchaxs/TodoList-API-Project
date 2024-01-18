@@ -31,8 +31,8 @@ describe("Create Todo", () => {
         })
 
         expect(result.status).toBe(400);
-        expect(result.text).toContain('"title" length must be at least 2 characters long');
-        expect(result.text).toContain('"priority" must be less than or equal to 5');
+        expect(result.body.errors).toContain('"title" length must be at least 2 characters long');
+        expect(result.body.errors).toContain('"priority" must be less than or equal to 5');
 
     });
 
@@ -40,7 +40,7 @@ describe("Create Todo", () => {
         const result = await supertest(app)
         .get('/todolist');
 
-        expect(result.text).toContain('Theres no Todos yet. Try to create one!')
+        expect(result.body.errors).toBe("There's no to-do list. Try to create one!")
     });
 })
 

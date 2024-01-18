@@ -240,7 +240,7 @@
                             }
                         }
                     },
-                    "400": {
+                    "404": {
                         "description": "failed to get todolist by id",
                         "content": {
                             "application/json": {
@@ -253,7 +253,7 @@
                                     }
                                 },
                                 "example": {
-                                    "errors": "To-Do List is not existing"
+                                    "errors": "To-Do List is not found / existing"
                                 }
                             }
                         }
@@ -345,7 +345,7 @@
                             }
                         }
                     },
-                    "400": {
+                    "404": {
                         "description": "failed to update To-Do List",
                         "content": {
                             "application/json": {
@@ -360,7 +360,7 @@
                                 "examples": {
                                     "Id not found": {
                                         "value": {
-                                            "errors": "To-Do list is not found"
+                                            "errors": "To-Do List is not found / existing"
                                         }
                                     }
                                 }
@@ -387,18 +387,18 @@
                                 "schema": {
                                     "type": "object",
                                     "properties": {
-                                        "description": {
+                                        "message": {
                                             "type": "string"
                                         }
                                     }
                                 },
                                 "example": {
-                                    "description": "To-Do List deleted"
+                                    "message": "To-Do List Deleted"
                                 }
                             }
                         }
                     },
-                    "400": {
+                    "404": {
                         "description": "failed to update To-Do List",
                         "content": {
                             "application/json": {
@@ -413,7 +413,7 @@
                                 "examples": {
                                     "Id not found": {
                                         "value": {
-                                            "errors": "To-Do list is not found"
+                                            "errors": "To-Do List is not found / existing"
                                         }
                                     }
                                 }
