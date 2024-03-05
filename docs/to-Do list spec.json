@@ -50,12 +50,14 @@
                                     }
                                 },
                                 "example": [{
+                                    "id": 1,
                                     "title": "Membuat API To-Do List",
                                     "description": "Membuat API To-Do List menggunakan Express JS.",
                                     "priority": 5
                                 
                                 },
                                 {
+                                    "id": 2,
                                     "title": "Belajar TypeScript",
                                     "description": "Lorem Ipsum bllbalblabla",
                                     "priority": 2
@@ -231,6 +233,7 @@
                                 "examples": {
                                     "example-1": {
                                         "value": {
+                                            "id": 1,
                                             "title": "Membuat API To-Do List",
                                             "description": "Membuat API To-Do List menggunakan Express JS, prisma dan lainnya.",
                                             "priority": 5

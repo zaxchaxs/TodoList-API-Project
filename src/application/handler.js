@@ -5,11 +5,11 @@ import { prismaClient } from './prisma-client.js';
 const getAllTodo = async (req, res) => {
     
     const result = await prismaClient.todolist.findMany({
-        select: {
-            title: true,
-            description: true,
-            priority: true
-        }
+        // select: {
+        //     title: true,
+        //     description: true,
+        //     priority: true
+        // }
     });
     if(result.length === 0) {
         res.status(404)
@@ -49,16 +49,6 @@ const createTodo = async (req, res) => {
             data: result
         });
     };
-
-    // try{
-    //     const result = await createTodoList.createTodo(req.body);
-    //     res.status(200).json({
-    //         data: result
-    //     });
-
-    // } catch (e){
-    //     console.log(e)
-    // }
 };
 
 const getTodoList = async (req, res) => {
@@ -66,11 +56,11 @@ const getTodoList = async (req, res) => {
         where: {
             id: parseInt(req.params.todolistID),
         },
-        select: {
-            title: true,
-            description: true,
-            priority: true
-        }
+        // select: {
+        //     title: true,
+        //     description: true,
+        //     priority: true
+        // }
     });
 
     if(result === null) {
@@ -154,7 +144,6 @@ const deleteTodolist =  async (req, res) => {
     }
 }
 
-// const errorMiddleware
 export {
     createTodo,
     getAllTodo,
